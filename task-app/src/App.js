@@ -32,7 +32,6 @@ class App extends Component {
 
     let tempCount = this.state.count;
     tempCount++;
-    console.log('🚀 ~ file: App.js:36 ~ App ~ tempCount:', tempCount);
 
     this.setState(
       {
@@ -45,16 +44,24 @@ class App extends Component {
         count: tempCount,
       },
       () =>
-        this.setState(
-          {
-            // Reset the task state
-            task: { text: '', id: uniqid(), number: 0 },
-            // Use concat to create a new copy of the array with new elment added
-            tasks: this.state.tasks.concat(this.state.task),
-          },
-          () => console.log(this.state.tasks)
-        )
+        this.setState({
+          // Reset the task state
+          task: { text: '', id: uniqid(), number: 0 },
+          // Use concat to create a new copy of the array with new elment added
+          tasks: this.state.tasks.concat(this.state.task),
+        })
     );
+  };
+
+  handleDelete = (number) => {
+    // A copy of this.state.tasks with a specific task removed
+    const tempTasks = this.state.tasks.filter(
+      (task) => task.number !== Number(number)
+    );
+
+    this.setState({
+      tasks: tempTasks,
+    });
   };
 
   render() {
@@ -72,7 +79,7 @@ class App extends Component {
           />
           <button type="submit">Submit</button>
         </form>
-        <Overview tasks={tasks} />
+        <Overview tasks={tasks} onDelete={this.handleDelete} />
       </div>
     );
   }

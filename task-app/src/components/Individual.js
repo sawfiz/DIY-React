@@ -1,21 +1,39 @@
-import React from 'react';
+import React, { Component } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import './Individual.css';
 
-export default function Individual(props) {
-  const { task } = props;
+export default class Individual extends Component {
+  constructor(props) {
+    super(props);
 
-  const handleClick = (e) => {
-    // props.onDelete(e.target.parentNode.parentNode.dataset.number)
-    props.onDelete(task.number);
+    this.state = {
+      mode: 'display',
+    };
+  }
+
+  handleEdit = (e) => {
+    console.log('edit');
   };
 
-  return (
-    <li data-number={task.number}>
-      {task.number} {task.text}
-      <button className="button">
-        <i className="fa-regular fa-trash-can" onClick={handleClick}></i>
-      </button>
-    </li>
-  );
+  handleDelete = () => {
+    this.props.onDelete(this.props.task.number);
+  };
+
+  render() {
+    const { task } = this.props;
+
+    let output = (
+      <li>
+        {task.number} {task.text}
+        <button className="button">
+          <i className="fa-regular fa-pen-to-square" onClick={this.handleEdit}></i>
+        </button>
+        <button className="button">
+          <i className="fa-regular fa-trash-can" onClick={this.handleDelete}></i>
+        </button>
+      </li>
+    );
+
+    return output;
+  }
 }

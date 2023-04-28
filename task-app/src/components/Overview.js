@@ -10,7 +10,7 @@ function Overview(props) {
 
   // prettier-ignore
   const tasksEl = tasks.map((task) => 
-    <Individual key={task.id} task={task} onDelete={props.onDelete}/>
+    <Individual key={task.id} task={task} onEdit={props.onEdit} onDelete={props.onDelete}/>
   );
 
   return (

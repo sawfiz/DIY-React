@@ -53,6 +53,12 @@ class App extends Component {
     );
   };
 
+  handleEdit = (number, text) => {
+    const tempTasks = this.state.tasks
+    tempTasks[number-1].text = text
+    this.setState({tasks: tempTasks})
+  }
+
   handleDelete = (number) => {
     // A copy of this.state.tasks with a specific task removed
     const tempTasks = this.state.tasks.filter(
@@ -79,7 +85,7 @@ class App extends Component {
           />
           <button type="submit">Submit</button>
         </form>
-        <Overview tasks={tasks} onDelete={this.handleDelete} />
+        <Overview tasks={tasks} onEdit={this.handleEdit}  onDelete={this.handleDelete} />
       </div>
     );
   }

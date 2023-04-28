@@ -1,3 +1,19 @@
+li {
+  width: 300px;
+  margin: 0.5rem;
+  display: grid;
+  gap: 5px;
+  border-bottom: 1px solid black;
+}
+
+.display {
+  grid-template-columns: 20px auto 30px 30px;
+}
+
+.edit {
+  grid-template-columns: 20px auto  30px;
+}
+
 button {
   cursor: pointer;
 }

@@ -1,41 +1,55 @@
 import React, { Component } from 'react';
+import uniqid from 'uniqid';
 import Overview from './components/Overview';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this.state = {
-      taskArray: [],
-      task: '',
+      // Make task an object
+      // Add uniqid
+      task: { text: '', id: uniqid() },
+      tasks: [],
     };
   }
 
   handleTaskChange = (event) => {
     this.setState({
-      task: event.target.value,
-    })
-  }
+      // How to setState for an object property in state
+      // Make sure to include all properties
+      task: { text: event.target.value, id: this.state.task.id },
+    });
+  };
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const tempArray = this.state.taskArray;
-    tempArray.push(this.state.task)
+    // const tempArray = this.state.tasks;
+    // tempArray.push(this.state.task);
     this.setState({
-      taskArray: tempArray,
-      task: ''
-    })
+      task: { text: '', id: uniqid() },
+      // tasks: tempArray,
+      // Use concat to create a new copy of the array with new elment added
+      tasks: this.state.tasks.concat(this.state.task)
+    });
   };
 
   render() {
+    // Destructuring the state to make code simpler
+    const { task, tasks } = this.state;
+
     return (
       <div className="App">
         <form onSubmit={this.handleSubmit}>
-          <label>Task</label>
-          <input type="text" value={this.state.task} onChange={this.handleTaskChange}></input>
-          <button>Submit</button>
+          <label>Enter task</label>
+          <input
+            type="text"
+            value={task.text}
+            onChange={this.handleTaskChange}
+          />
+          <button type="submit">Submit</button>
         </form>
-        <Overview tasks={this.state.taskArray}/>
+        <Overview tasks={tasks} />
       </div>
     );
   }
